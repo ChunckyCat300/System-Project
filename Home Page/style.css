@@ -1,0 +1,157 @@
+/* =========================================
+   CUSTOM VARIABLES
+========================================= */
+:root {
+    /* Colors */
+    --bg-color: #ebf3ff;
+    --card-bg: #ffffff;
+    --primary-color: #2563eb;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+
+    /* Layout Sizes (Change these to modify the page!) */
+    --layout-gap: 2%;
+    --header-height: 8%;
+    --footer-height: 8%;
+    --middle-height: 80%; /* Height for both Sidebar and Content */
+    --sidebar-width: 10%;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+}
+
+/* =========================================
+   MODIFIABLE LAYOUT LOGIC (Upgraded to CSS Grid)
+========================================= */
+.container {
+    display: grid;
+    
+    /* This creates 2 columns: Sidebar width, and '1fr' (which means 'take up 1 fraction of the remaining space') */
+    grid-template-columns: var(--sidebar-width) 1fr;
+    
+    /* This creates 3 rows matching your height variables */
+    grid-template-rows: var(--header-height) var(--middle-height) var(--footer-height);
+    
+    gap: var(--layout-gap);
+    height: 100vh; 
+    padding: var(--layout-gap); 
+    
+    /* NEW: This forces a horizontal scrollbar instead of squishing the layout when the window is super small */
+    min-width: 800px; 
+}
+
+/* Base style for all items */
+.item {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--border-color);
+    overflow: hidden; /* Prevents text from spilling out if it gets too small */
+}
+
+/* Header (1st item) */
+.item:nth-child(1) {
+    grid-column: 1 / -1; /* This tells the header to stretch across ALL columns */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Puts title on left, logout on right */
+}
+
+/* Sidebar (2nd item) */
+.item:nth-child(2) {
+    /* Automatically locks into the bottom-left grid space */
+}
+
+/* Content (3rd item) */
+.item:nth-child(3) {
+    /* Automatically locks into the bottom-right grid space */
+    overflow-y: auto; /* Adds an inside scrollbar if you type a LOT of text here */
+}
+
+/* Footer (4th item) */
+.item:nth-child(4) {
+    grid-column: 1 / -1; /* Stretches across ALL columns like the header */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================================
+   INTERNAL STYLING (Just making it look good)
+========================================= */
+
+/* Header Specifics */
+.header {
+    justify-content: space-between; /* Puts title on left, logout on right */
+}
+
+.header h2 {
+    font-size: 20px;
+    color: var(--primary-color);
+}
+
+.logout-btn {
+    text-decoration: none;
+    color: white;
+    background-color: var(--text-main);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #1e293b;
+}
+
+/* Sidebar Specifics */
+.nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    display: block;
+    padding: 10px;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+}
+
+/* Content Specifics */
+.content h3 {
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+.content p {
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+/* Footer Specifics */
+.footer {
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 14px;
+}
