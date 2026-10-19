@@ -1,21 +1,19 @@
 :root {
     /* Colors */
     --bg-color: #ebf3ff;
-    --card-bg: #ffffff;
-    --primary-color: #2563eb;       /* The blue link/icon color */
-    --primary-hover: #1d4ed8;       
-    --button-bg: #0f172a;           /* The dark blue button color */
-    --button-hover-bg: #1e293b;     /* Lighter color for button hover */
+    --card-bg: transparent;
+    --primary-color: #60a5fa;       /* Lighter blue so links pop */
+    --primary-hover: #93c5fd;       
     
-    /* Text Colors */
-    --text-main: #0f172a;
-    --text-muted: #64748b;
+    /* Text Colors - Flipped to White/Light Gray */
+    --text-main: #ffffff;           /* Pure white for main text */
+    --text-muted: #cbd5e1;          /* Light gray for subtitles/labels */
     --text-placeholder: #94a3b8;
     
     /* Borders & Inputs */
-    --border-color: #2466a3;
-    --input-hover-border: #93c5fd;  /* Border color when hovering over input */
-    --input-focus-border: #2563eb;
+    --border-color: rgba(255, 255, 255, 0.3); /* Soft, glassy borders */
+    --input-hover-border: rgba(255, 255, 255, 0.6);  
+    --input-focus-border: #60a5fa;
     
     /* Layout & Spacing */
     --card-padding: 40px;
@@ -36,7 +34,13 @@
 }
 
 body {
-    background-color: var(--bg-color);
+    /* The linear gradient acts as a dark overlay so your white login card stands out */
+    background-image: linear-gradient(rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.85)), url('../Cozy.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    
     color: var(--text-main);
     display: flex;
     justify-content: center;
@@ -57,41 +61,55 @@ body {
 }
 
 .login-card {
-    background-color: var(--card-bg);
+    /* Extreme Glassmorphism */
+    background-color: rgba(255, 255, 255, 0.1); /* Super transparent */
+    backdrop-filter: blur(16px); /* Smooth, elegant blur */
+    -webkit-backdrop-filter: blur(16px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    border-top: 1px solid rgba(255, 255, 255, 0.4); 
+    
+    /* Darker drop shadow to lift the transparent card */
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 
+                0 0 20px rgba(255, 255, 255, 0.05) inset; 
+    
     width: 100%;
     padding: var(--card-padding);
-    border-radius: var(--card-border-radius);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    border-radius: 24px;
     text-align: center;
+}
+
+h2 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px; 
+    margin-bottom: 6px;
+    color: #ffffff; /* Pure white contrast */
 }
 
 /* =========================================
    HEADER STYLES
 ========================================= */
 .icon-container {
-    width: 48px;
-    height: 48px;
-    background-color: var(--bg-color);
-    color: var(--primary-color);
-    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto 20px;
 }
 
-h2 {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 8px;
+.brand-logo {
+    width: 85px; /* Significantly larger for brand visibility */
+    height: 85px;
+    border-radius: 50%;
+    box-shadow: 0 8px 16px rgba(15, 23, 42, 0.15); /* Adds a floating depth to the icon */
+    object-fit: cover;
 }
 
 .subtitle {
-    color: var(--text-muted);
+    color: #e2e8f0; 
     font-size: 14px;
     margin-bottom: 30px;
 }
-
 /* =========================================
    FORM & INPUT STYLES
 ========================================= */
@@ -111,6 +129,7 @@ label {
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 8px;
+    color: #e2e8f0; 
 }
 
 .forgot-link {
@@ -135,7 +154,7 @@ label {
 .input-icon {
     position: absolute;
     left: 14px;
-    color: var(--text-muted);
+    color: #cbd5e1; 
 }
 
 .right-icon {
@@ -151,15 +170,19 @@ label {
 }
 
 input {
-    width: 100%; /* Forces it to match the email box length */
+    width: 100%; 
     box-sizing: border-box; 
     padding: var(--input-padding);
     padding-left: 40px; 
-    padding-right: 40px; /* Gives the text room so it doesn't type under the eye */
+    padding-right: 40px; 
+    
+    /* Dark Glass Input Style */
+    background-color: rgba(0, 0, 0, 0.25); /* Dark translucent background */
+    color: #ffffff; /* White text when typing */
     border: 1px solid var(--border-color);
     border-radius: var(--input-border-radius);
+    
     font-size: 14px;
-    color: var(--text-main);
     outline: none;
     transition: all 0.3s ease; 
 }
@@ -182,25 +205,27 @@ input:focus {
 /* =========================================
    BUTTON STYLES
 ========================================= */
+/* Replace the existing .login-btn block */
 .login-btn {
     width: 100%;
     padding: var(--button-padding);
-    background-color: var(--button-bg);
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); /* Bright blue to pop */
     color: white;
     border: none;
     border-radius: var(--input-border-radius);
     font-size: 15px;
     font-weight: 600;
+    letter-spacing: 0.5px;
     cursor: pointer;
     margin-top: 10px;
-    transition: all 0.3s ease; /* Smooth transition for hover */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
-/* BUTTON HOVER ANIMATION */
 .login-btn:hover {
-    background-color: var(--button-hover-bg);
-    transform: translateY(-2px); /* Slight lift effect */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(15, 23, 42, 0.25);
 }
 
 /* =========================================
@@ -209,7 +234,7 @@ input:focus {
 .signup-text {
     margin-top: 25px;
     font-size: 14px;
-    color: var(--text-muted);
+    color: #e2e8f0; 
 }
 
 .signup-link {

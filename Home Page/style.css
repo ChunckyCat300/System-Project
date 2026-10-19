@@ -1,20 +1,31 @@
 /* =========================================
-   1. CUSTOM VARIABLES & RESET
+   1. CUSTOM VARIABLES & RESET (GLOSSY DARK GLASS)
 ========================================= */
 :root {
-    /* Colors */
-    --bg-color: #ebf3ff;
-    --card-bg: #ffffff;
-    --primary-color: #2563eb;
-    --primary-hover: #1d4ed8;
-    --text-main: #0f172a;
-    --text-muted: #64748b;
-    --text-placeholder: #94a3b8;
-    --border-color: #e2e8f0;
+    /* True Glassmorphism Palette matching Login Page */
+    --glass-bg: rgba(30, 41, 59, 0.55);         /* Frosted slate-blue glass */
+    --glass-bg-elevated: rgba(15, 23, 42, 0.85);/* Deeper glass for popups/footer */
+    --glass-card: rgba(255, 255, 255, 0.05);    /* Subtle inner card gloss */
+    --glass-card-hover: rgba(255, 255, 255, 0.12);
+    
+    /* Borders & Highlights */
+    --border-color: rgba(255, 255, 255, 0.14);  /* Crisp glass edge */
+    --border-highlight: rgba(255, 255, 255, 0.28);
+    
+    /* Brand & Accent Colors */
+    --primary-color: #3b82f6;                   /* Vibrant Royal Blue (matches Login button) */
+    --primary-hover: #2563eb;
+    --accent-glow: #60a5fa;                     /* Soft sky blue for text highlights */
+    --gold-accent: #fbbf24;                     /* Warm gold from Moon & Mug badge */
+    
+    /* Text Colors */
+    --text-main: #f8fafc;                       /* Crisp off-white */
+    --text-muted: #94a3b8;                      /* Muted slate silver */
+    --text-placeholder: #64748b;
     
     /* Layout Sizes */
-    --layout-gap: 2%;
-    --header-height: 8%;
+    --layout-gap: 18px;
+    --header-height: 70px;
 }
 
 * {
@@ -25,8 +36,29 @@
 }
 
 body {
-    background-color: var(--bg-color);
+    /* Matches the cozy blurred cafe backdrop */
+    background-image: linear-gradient(rgba(10, 15, 29, 0.72), rgba(10, 15, 29, 0.88)), url('../Login Page/Cozy.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     color: var(--text-main);
+    overflow: hidden;
+}
+
+/* Custom Sleek Glass Scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.35);
 }
 
 /* =========================================
@@ -34,9 +66,7 @@ body {
 ========================================= */
 .container {
     display: grid;
-    /* 3 Columns: Sidebar, Main Content, Cart */
-    grid-template-columns: 15% 1fr 300px;
-    /* 3 Rows: Header, Main area, Footer */
+    grid-template-columns: 200px 1fr 320px;
     grid-template-rows: var(--header-height) 1fr 80px; 
     gap: var(--layout-gap);
     height: 100vh;
@@ -44,12 +74,15 @@ body {
     min-width: 1000px; 
 }
 
-/* Base style for all layout panels */
+/* Base Glossy Glass Style for all Panels */
 .item {
-    background-color: var(--card-bg);
-    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.03));
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-radius: 16px;
     padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
     border: 1px solid var(--border-color);
     overflow: hidden; 
 }
@@ -60,14 +93,14 @@ body {
     display: flex; 
     align-items: center; 
     justify-content: space-between; 
-    overflow: visible; /* CRITICAL: Allows dropdown to pop out over the grid */
+    overflow: visible; /* Allows dropdown to pop out over the grid */
     z-index: 100;
 }
 
 /* Panel 2: Navigation Sidebar */
 .item:nth-child(2) { 
     grid-column: 1; 
-    grid-row: 2 / 4; /* Stretches down past the footer */
+    grid-row: 2 / 4; 
 } 
 
 /* Panel 3: Product Content Area */
@@ -77,15 +110,16 @@ body {
     overflow-y: auto; 
 }
 
-/* Panel 4: Preview Footer (Staging Area) */
+/* Panel 4: Preview Footer (Staging Area) - FIXED DARK GLASS */
 .item:nth-child(4) { 
     grid-column: 2; 
     grid-row: 3; 
     display: flex; 
     align-items: center; 
     justify-content: space-between;
-    border: 2px solid var(--primary-color); 
-    background-color: #f8fafc;
+    background: var(--glass-bg-elevated);
+    border: 1px solid var(--accent-glow); 
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 /* Panel 5: Cart Sidebar */
@@ -101,44 +135,41 @@ body {
 ========================================= */
 .header h2 {
     font-size: 20px;
-    color: var(--primary-color);
-}
-
-.logout-btn {
-    text-decoration: none;
-    color: white;
-    background-color: var(--text-main);
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    transition: background 0.3s;
-}
-
-.logout-btn:hover {
-    background-color: #1e293b;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--accent-glow);
+    text-shadow: 0 2px 10px rgba(96, 165, 250, 0.3);
 }
 
 .nav-links {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
 }
 
 .nav-links a {
     text-decoration: none;
     color: var(--text-muted);
     font-weight: 600;
+    font-size: 14px;
     display: block;
-    padding: 10px;
-    border-radius: 6px;
-    transition: all 0.2s;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
 }
 
-.nav-links a:hover, .nav-links a.active {
-    background-color: var(--bg-color);
-    color: var(--primary-color);
+.nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+    color: var(--text-main);
+}
+
+.nav-links a.active {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.35), rgba(37, 99, 235, 0.15));
+    color: #ffffff;
+    border: 1px solid rgba(96, 165, 250, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* =========================================
@@ -146,40 +177,43 @@ body {
 ========================================= */
 .content h3 {
     margin-bottom: 15px;
-    font-size: 24px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 20px;
-    padding: 10px 0;
+    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+    gap: 18px;
+    padding: 6px 0;
 }
 
 .product-card {
-    background-color: var(--card-bg);
+    background: var(--glass-card);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 15px;
+    border-radius: 14px;
+    padding: 16px 12px;
     text-align: center;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease; 
+    gap: 8px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.22s ease; 
 }
 
 .product-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
-    border-color: var(--primary-color);
+    background: var(--glass-card-hover);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.45), 0 0 12px rgba(96, 165, 250, 0.25);
+    border-color: var(--accent-glow);
 }
 
 .product-card:active {
-    transform: translateY(2px) scale(0.95);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transform: translateY(1px) scale(0.97);
 }
 
 .product-icon img {
@@ -187,58 +221,71 @@ body {
     height: auto;
     max-height: 80px; 
     object-fit: contain;
+    filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.35));
 }
 
 .product-icon {
-    font-size: 40px; /* For the emoji icons */
+    font-size: 40px;
 }
 
 .product-name {
     font-size: 14px;
     font-weight: 600;
     color: var(--text-main);
+    margin-top: 4px;
+}
+
+.product-card-price {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent-glow);
 }
 
 /* =========================================
    5. PREVIEW FOOTER (STAGING AREA)
 ========================================= */
 .preview-name {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 17px;
+    font-weight: 700;
     color: var(--text-main);
 }
 
 .preview-price {
     font-size: 14px;
-    color: var(--text-muted);
-    margin-top: 4px;
+    color: var(--accent-glow);
+    margin-top: 3px;
     font-weight: 600;
 }
 
 .preview-controls {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 18px;
     font-size: 18px;
     font-weight: bold;
+    color: var(--text-main);
 }
 
 .qty-btn {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border: 1px solid var(--border-color);
-    background: white;
+    border: 1px solid var(--border-highlight);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
     cursor: pointer;
     font-size: 18px;
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s;
+    transition: all 0.2s ease;
 }
 
 .qty-btn:hover {
-    background: var(--border-color);
+    background: var(--primary-color);
+    border-color: var(--accent-glow);
+    transform: scale(1.05);
 }
 
 .add-btn {
@@ -246,39 +293,36 @@ body {
     background-color: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 8px;
-    font-weight: bold;
+    border-radius: 10px;
+    font-weight: 700;
     cursor: pointer;
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
     transition: all 0.2s ease;
 }
 
 .add-btn:hover {
     background-color: var(--primary-hover);
     transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(59, 130, 246, 0.6);
 }
 
 /* =========================================
    6. CART SIDEBAR STYLES
 ========================================= */
-.cart-sidebar h3 {
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--border-color);
-}
-
 .cart-items-container {
-    flex-grow: 1; /* Pushes the summary block to the bottom */
+    flex-grow: 1;
     overflow-y: auto;
     margin-bottom: 15px;
+    padding-right: 4px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 .empty-cart-msg {
-    color: var(--text-placeholder);
+    color: var(--text-muted);
     text-align: center;
-    margin-top: 20px;
+    margin-top: 40px;
     font-size: 14px;
 }
 
@@ -286,122 +330,144 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    background-color: var(--bg-color);
-    border-radius: 8px;
+    padding: 14px;
+    background-color: rgba(15, 23, 42, 0.55); /* Deep glossy inset */
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
     font-size: 14px;
-}
-
-.cart-item-details {
-    display: flex;
-    flex-direction: column;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .cart-item-name {
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-main);
+    font-size: 15px;
+}
+
+.cart-item-sum {
+    color: var(--accent-glow);
+    font-size: 15px;
 }
 
 .cart-item-price {
     color: var(--text-muted);
     font-size: 12px;
-    margin-top: 2px;
+    margin-top: 3px;
 }
 
 .cart-summary {
-    border-top: 2px solid var(--border-color);
-    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 16px;
 }
 
 .cart-total-row {
     display: flex;
     justify-content: space-between;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
     margin-bottom: 15px;
-    color: var(--primary-color);
+    color: var(--accent-glow);
 }
 
 .checkout-btn {
     width: 100%;
     padding: 14px;
-    background-color: #0f172a;
+    background-color: var(--primary-color); /* Matches Login Sign In Button */
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.35);
+    transition: all 0.25s ease;
 }
 
 .checkout-btn:hover {
-    background-color: #1e293b;
+    background-color: var(--primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.55);
 }
+
 /* =========================================
-   7. IN-CART CUSTOMIZATION & CONTROLS
+   7. IN-CART CUSTOMIZATION & CONTROLS (FIXED)
 ========================================= */
 .cart-item-customizations {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    margin: 10px 0;
+    gap: 8px;
+    margin: 12px 0;
 }
 
+/* FIXED: Dark Glass Select Dropdowns so text is visible */
 .cart-custom-select {
-    padding: 6px;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
-    background: white;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(15, 23, 42, 0.85);
     color: var(--text-main);
     font-size: 12px;
+    font-weight: 500;
     outline: none;
     cursor: pointer;
     width: 100%;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.cart-custom-select:hover,
+.cart-custom-select:focus {
+    border-color: var(--accent-glow);
+    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+}
+
+/* Ensures the open dropdown list options have a dark background */
+.cart-custom-select option {
+    background-color: #0f172a;
+    color: #f8fafc;
 }
 
 .cart-item-controls {
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin-top: 8px;
+    gap: 14px;
+    margin-top: 6px;
     font-weight: bold;
+    color: var(--text-main);
 }
 
 .cart-qty-btn {
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    border: 1px solid var(--border-color);
-    background: white;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s;
+    transition: all 0.2s ease;
 }
 
 .cart-qty-btn:hover {
-    background: var(--border-color);
+    background: var(--primary-color);
+    border-color: var(--accent-glow);
 }
+
 /* =========================================
    8. PRINT STYLES (RECEIPT)
 ========================================= */
-/* Hide the receipt on the normal screen */
 @media screen {
     .print-only {
         display: none;
     }
 }
 
-/* When printing, hide the app container and show only the receipt */
 @media print {
     body * {
-        visibility: hidden; /* Hides the sidebar, grid, header, etc. */
+        visibility: hidden;
     }
     .print-only, .print-only * {
         visibility: visible;
@@ -410,10 +476,11 @@ body {
         position: absolute;
         left: 0;
         top: 0;
-        width: 300px; /* Standard width for thermal POS printers */
+        width: 300px;
         padding: 10px;
         font-family: 'Courier New', Courier, monospace;
         color: #000;
+        background: #fff;
     }
     
     .receipt-header {
@@ -451,7 +518,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: #f8fafc;
+    background: rgba(255, 255, 255, 0.08);
     border: 1px solid var(--border-color);
     padding: 6px 14px 6px 8px;
     border-radius: 30px;
@@ -463,8 +530,8 @@ body {
 }
 
 .profile-btn:hover {
-    background: #f1f5f9;
-    border-color: #cbd5e1;
+    background: rgba(255, 255, 255, 0.16);
+    border-color: var(--border-highlight);
 }
 
 .chevron {
@@ -499,21 +566,22 @@ body {
     width: 10px;
     height: 10px;
     background-color: #10b981;
-    border: 2px solid white;
+    border: 2px solid #0f172a;
     border-radius: 50%;
 }
 
-/* Floating Dropdown Card */
 .dropdown-card {
     display: none;
     position: absolute;
     right: 0;
     top: calc(100% + 10px);
     width: 230px;
-    background-color: #ffffff;
+    background-color: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
-    border: 1px solid var(--border-color);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--border-highlight);
     padding: 8px 0;
     z-index: 999;
 }
@@ -569,8 +637,9 @@ body {
     transition: background 0.15s ease;
 }
 
+/* FIXED: Hover stays dark-glass instead of turning white */
 .dropdown-item:hover {
-    background-color: #f8fafc;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .dropdown-item-left {
@@ -591,15 +660,14 @@ body {
     line-height: 1;
 }
 
-/* Red Logout Styling */
 .logout-item {
-    color: #ef4444;
+    color: #f87171;
 }
 
 .logout-item .dropdown-icon {
-    color: #ef4444;
+    color: #f87171;
 }
 
 .logout-item:hover {
-    background-color: #fef2f2;
+    background-color: rgba(239, 68, 68, 0.15);
 }

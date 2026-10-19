@@ -46,80 +46,80 @@ document.getElementById('logout-btn').addEventListener('click', () => {
 });
 
 const menuData = {
-   "milktea": [
-        { name: 'Classic', price: 110, icon: '<img src="Milktea/Classic Milk Tea.png" alt="Classic">' },
-        { name: 'Okinawa', price: 110, icon: '<img src="Milktea/Okinawa Milk Tea.png" alt="Okinawa">' },
-        { name: 'Taro', price: 105, icon: '<img src="Milktea/Taro Milk Tea.png" alt="Taro">' },
-        { name: 'Matcha', price: 120, icon: '<img src="Milktea/Matcha Milk Tea.png" alt="Matcha">' },
-        { name: 'Cookies & Cream', price: 120, icon: '<img src="Milktea/Cookies N\' Cream.png" alt="Cookies & Cream">' },
-        { name: 'Thai', price: 115, icon: '<img src="Milktea/Thai Milk Tea.png" alt="Thai">' },
+    "milktea": [
+        { name: 'Classic', price: 90, icon: '<img src="Milktea/Classic Milk Tea.png" alt="Classic">' },
         { name: 'Wintermelon', price: 95, icon: '<img src="Milktea/Wintermelon Milk Tea.png" alt="Wintermelon">' },
-        { name: 'Blueberry', price: 120, icon: '<img src="Milktea/Blueberry Milk Tea.png" alt="Blueberry">' },
-        { name: 'Strawberry', price: 110, icon: '<img src="Milktea/Strawberry Milk Tea.png" alt="Strawberry">' },
-        { name: 'Lychee', price: 110, icon: '<img src="Milktea/Lychee Milk Tea.png" alt="Lychee">' },
-        { name: 'Mango', price: 110, icon: '<img src="Milktea/Mango Milk Tea.png" alt="Mango">' }
+        { name: 'Taro', price: 100, icon: '<img src="Milktea/Taro Milk Tea.png" alt="Taro">' },
+        { name: 'Thai', price: 105, icon: '<img src="Milktea/Thai Milk Tea.png" alt="Thai">' },
+        { name: 'Lychee', price: 100, icon: '<img src="Milktea/Lychee Milk Tea.png" alt="Lychee">' },
+        { name: 'Strawberry', price: 105, icon: '<img src="Milktea/Strawberry Milk Tea.png" alt="Strawberry">' },
+        { name: 'Mango', price: 105, icon: '<img src="Milktea/Mango Milk Tea.png" alt="Mango">' },
+        { name: 'Blueberry', price: 105, icon: '<img src="Milktea/Blueberry Milk Tea.png" alt="Blueberry">' },
+        { name: 'Okinawa', price: 110, icon: '<img src="Milktea/Okinawa Milk Tea.png" alt="Okinawa">' },
+        { name: 'Cookies & Cream', price: 115, icon: '<img src="Milktea/Cookies N\' Cream.png" alt="Cookies & Cream">' },
+        { name: 'Matcha', price: 120, icon: '<img src="Milktea/Matcha Milk Tea.png" alt="Matcha">' }
     ],
     frappe: [
-        { name: 'Coffee Frappe', price: 150, icon: '<img src="Frappe/Coffee.png" alt="Coffee Frappe">' },
-        { name: 'Strawberry Frappe', price: 160, icon: '<img src="Frappe/Strawberry.png" alt="Strawberry Frappe">' },
-        { name: 'Taro Frappe', price: 150, icon: '<img src="Frappe/Taro.png" alt="Taro Frappe">' },
-        { name: 'Cookies & Cream', price: 165, icon: '<img src="Frappe/Cookies & Cream.png" alt="Cookies & Cream">' },
-        { name: 'Mango Frappe', price: 150, icon: '<img src="Frappe/Mango.png" alt="Mango Frappe">' },
-        { name: 'Matcha Frappe', price: 150, icon: '<img src="Frappe/Matcha.png" alt="Matcha Frappe">' },
+        { name: 'Taro Frappe', price: 135, icon: '<img src="Frappe/Taro.png" alt="Taro Frappe">' },
+        { name: 'Coffee Frappe', price: 140, icon: '<img src="Frappe/Coffee.png" alt="Coffee Frappe">' },
+        { name: 'Mango Frappe', price: 140, icon: '<img src="Frappe/Mango.png" alt="Mango Frappe">' },
+        { name: 'Strawberry Frappe', price: 145, icon: '<img src="Frappe/Strawberry.png" alt="Strawberry Frappe">' },
         { name: 'Mocha Frappe', price: 150, icon: '<img src="Frappe/Mocha.png" alt="Mocha Frappe">' },
+        { name: 'Matcha Frappe', price: 155, icon: '<img src="Frappe/Matcha.png" alt="Matcha Frappe">' },
+        { name: 'Cookies & Cream', price: 155, icon: '<img src="Frappe/Cookies & Cream.png" alt="Cookies & Cream">' }
     ],
     refreshers: [
-        { name: 'Lemonade', price: 100, icon: '<img src="Refreshers/lemonade.png" alt="Lemonade">' },
-        { name: 'Peach Lemonade', price: 100, icon: '<img src="Refreshers/Peach lemonade.png" alt="Peach Lemonade">' },
+        { name: 'Lemonade', price: 85, icon: '<img src="Refreshers/lemonade.png" alt="Lemonade">' },
+        { name: 'Cucumber Lemonade', price: 90, icon: '<img src="Refreshers/Cucumber lemonade.png" alt="Cucumber Lemonade">' },
+        { name: 'Peach Lemonade', price: 95, icon: '<img src="Refreshers/Peach lemonade.png" alt="Peach Lemonade">' },
         { name: 'Strawberry Lemonade', price: 100, icon: '<img src="Refreshers/Strawberry lemonade.png" alt="Strawberry Lemonade">' },
-        { name: 'Blueberry Lemonade', price: 100, icon: '<img src="Refreshers/Blueberry lemonade.png" alt="Blueberry Lemonade">' },
-        { name: 'Cucumber Lemonade', price: 95, icon: '<img src="Refreshers/Cucumber lemonade.png" alt="Cucumber Lemonade">' }
-    ],
-    hotCoffee: [
-        { name: 'Espresso', price: 80, icon: '<img src="Hot Coffee/Espresso.png" alt="Espresso">' },
-        { name: 'Americano', price: 90, icon: '<img src="Hot Coffee/Americano.png" alt="Americano">' },
-        { name: 'Cappuccino', price: 120, icon: '<img src="Hot Coffee/Cappuccino.png" alt="Cappuccino">' },
-        { name: 'Cafe Latte', price: 120, icon: '<img src="Hot Coffee/Cafe Latte.png" alt="Cafe Latte">' },
-        { name: 'Mocha', price: 130, icon: '<img src="Hot Coffee/Mocha.png" alt="Mocha">' },
-        { name: 'White Mocha', price: 135, icon: '<img src="Hot Coffee/White Mocha.png" alt="White Mocha">' },
-        { name: 'Spanish Latte', price: 140, icon: '<img src="Hot Coffee/Spanish Latte.png" alt="Spanish Latte">' },
-        { name: 'Caramel Latte', price: 135, icon: '<img src="Hot Coffee/Caramel Latte.png" alt="Caramel Latte">' },
-        { name: 'Caramel Macchiato', price: 145, icon: '<img src="Hot Coffee/Caramel Macchiato.png" alt="Caramel Macchiato">' },
-        { name: 'Flat White', price: 125, icon: '<img src="Hot Coffee/Flat White.png" alt="Flat White">' }
-    ],
-    tea: [
-        { name: 'Chamomile Tea', price: 85, icon: '<img src="Tea/Charmomile.png" alt="Chamomile Tea">' }, 
-        { name: 'Green Tea', price: 80, icon: '<img src="Tea/Green.png" alt="Green">' },
-        { name: 'Honey Tea', price: 95, icon: '<img src="Tea/Honey.png" alt="Honey Tea">' },
-        { name: 'Lemon Tea', price: 85, icon: '<img src="Tea/Lemon.png" alt="Lemon Tea">' },
-        { name: 'Jasmine Tea', price: 90, icon: '<img src="Tea/Jasmine.png" alt="Jasmine Tea">' }
+        { name: 'Blueberry Lemonade', price: 100, icon: '<img src="Refreshers/Blueberry lemonade.png" alt="Blueberry Lemonade">' }
     ],
     icedCoffee: [
-        { name: 'Iced Americano', price: 100, icon: '<img src="Iced Coffee/Iced Americano.png" alt="Iced Americano">' },
-        { name: 'Iced Caramel Macchiato', price: 100, icon: '<img src="Iced Coffee/Iced Caramel Macchiato.png" alt="Iced Caramel Macchiato">' },
-        { name: 'Iced Hazelnut Latte', price: 100, icon: '<img src="Iced Coffee/Iced Hazelnut Latte.png" alt="Iced Hazelnut Latte">' },
-        { name: 'Iced Latte', price: 100, icon: '<img src="Iced Coffee/Iced Latte.png" alt="Iced Latte">' },
-        { name: 'Iced Mocha', price: 100, icon: '<img src="Iced Coffee/Iced Mocha.png" alt="Iced Mocha">' },
-        { name: 'Iced Salted Caramel Latte', price: 100, icon: '<img src="Iced Coffee/Iced Salted Caramel Latte.png" alt="Iced Salted Caramel Latte">' },
-        { name: 'Iced Spanish Latte', price: 100, icon: '<img src="Iced Coffee/Iced Spanish Latte.png" alt="Iced Spanish Latte">' },
-        { name: 'Iced Vanilla Latte', price: 100, icon: '<img src="Iced Coffee/Iced Vanilla Latte.png" alt="Iced Vanilla Latte">' },
-        { name: 'Iced White Mocha', price: 100, icon: '<img src="Iced Coffee/Iced White Mocha.png" alt="Iced White Mocha">' },
+        { name: 'Iced Americano', price: 95, icon: '<img src="Iced Coffee/Iced Americano.png" alt="Iced Americano">' },
+        { name: 'Iced Latte', price: 115, icon: '<img src="Iced Coffee/Iced Latte.png" alt="Iced Latte">' },
+        { name: 'Iced Vanilla Latte', price: 125, icon: '<img src="Iced Coffee/Iced Vanilla Latte.png" alt="Iced Vanilla Latte">' },
+        { name: 'Iced Hazelnut Latte', price: 125, icon: '<img src="Iced Coffee/Iced Hazelnut Latte.png" alt="Iced Hazelnut Latte">' },
+        { name: 'Iced Spanish Latte', price: 130, icon: '<img src="Iced Coffee/Iced Spanish Latte.png" alt="Iced Spanish Latte">' },
+        { name: 'Iced Mocha', price: 130, icon: '<img src="Iced Coffee/Iced Mocha.png" alt="Iced Mocha">' },
+        { name: 'Iced Caramel Macchiato', price: 135, icon: '<img src="Iced Coffee/Iced Caramel Macchiato.png" alt="Iced Caramel Macchiato">' },
+        { name: 'Iced Salted Caramel Latte', price: 135, icon: '<img src="Iced Coffee/Iced Salted Caramel Latte.png" alt="Iced Salted Caramel Latte">' },
+        { name: 'Iced White Mocha', price: 140, icon: '<img src="Iced Coffee/Iced White Mocha.png" alt="Iced White Mocha">' }
+    ],
+    hotCoffee: [
+        { name: 'Espresso', price: 75, icon: '<img src="Hot Coffee/Espresso.png" alt="Espresso">' },
+        { name: 'Americano', price: 85, icon: '<img src="Hot Coffee/Americano.png" alt="Americano">' },
+        { name: 'Cafe Latte', price: 110, icon: '<img src="Hot Coffee/Cafe Latte.png" alt="Cafe Latte">' },
+        { name: 'Cappuccino', price: 110, icon: '<img src="Hot Coffee/Cappuccino.png" alt="Cappuccino">' },
+        { name: 'Flat White', price: 115, icon: '<img src="Hot Coffee/Flat White.png" alt="Flat White">' },
+        { name: 'Spanish Latte', price: 120, icon: '<img src="Hot Coffee/Spanish Latte.png" alt="Spanish Latte">' },
+        { name: 'Mocha', price: 120, icon: '<img src="Hot Coffee/Mocha.png" alt="Mocha">' },
+        { name: 'Caramel Latte', price: 125, icon: '<img src="Hot Coffee/Caramel Latte.png" alt="Caramel Latte">' },
+        { name: 'White Mocha', price: 125, icon: '<img src="Hot Coffee/White Mocha.png" alt="White Mocha">' },
+        { name: 'Caramel Macchiato', price: 130, icon: '<img src="Hot Coffee/Caramel Macchiato.png" alt="Caramel Macchiato">' }
+    ],
+    tea: [
+        { name: 'Green Tea', price: 75, icon: '<img src="Tea/Green.png" alt="Green">' },
+        { name: 'Lemon Tea', price: 80, icon: '<img src="Tea/Lemon.png" alt="Lemon Tea">' },
+        { name: 'Jasmine Tea', price: 80, icon: '<img src="Tea/Jasmine.png" alt="Jasmine Tea">' },
+        { name: 'Chamomile Tea', price: 85, icon: '<img src="Tea/Charmomile.png" alt="Chamomile Tea">' }, 
+        { name: 'Honey Tea', price: 90, icon: '<img src="Tea/Honey.png" alt="Honey Tea">' }
     ],
     pastries: [
-        { name: 'Banana Bread', price: 150, icon: '<img src="Pastries/Banana Bread.png" alt="Banana Bread">' },
-        { name: 'Blueberry Muffin', price: 150, icon: '<img src="Pastries/Blueberry Muffin.png" alt="Blueberry Muffin">' },
-        { name: 'Butter Croissant', price: 150 , icon: '<img src="Pastries/Butter Croissant.png" alt="Butter Croissant">' },
-        { name: 'Cheesecake Slice', price: 150, icon: '<img src="Pastries/Cheesecake Slice.png" alt="Cheesecake Slice">' },
-        { name: 'Chocolate Chip Cookie', price: 150, icon: '<img src="Pastries/Chocolate Chip Cookie.png" alt="Chocolate Chip Cookie">' },
-        { name: 'Chocolate Croissant', price: 150, icon: '<img src="Pastries/Chocolate Croissant.png" alt="Chocolate Croissant">' },
-        { name: 'Chocolate Muffin', price: 150, icon: '<img src="Pastries/Chocolate Muffin.png" alt="Chocolate Muffin">' },
+        { name: 'Chocolate Chip Cookie', price: 65, icon: '<img src="Pastries/Chocolate Chip Cookie.png" alt="Chocolate Chip Cookie">' },
+        { name: 'Banana Bread', price: 75, icon: '<img src="Pastries/Banana Bread.png" alt="Banana Bread">' },
+        { name: 'Chocolate Muffin', price: 85, icon: '<img src="Pastries/Chocolate Muffin.png" alt="Chocolate Muffin">' },
+        { name: 'Blueberry Muffin', price: 90, icon: '<img src="Pastries/Blueberry Muffin.png" alt="Blueberry Muffin">' },
+        { name: 'Butter Croissant', price: 95, icon: '<img src="Pastries/Butter Croissant.png" alt="Butter Croissant">' },
+        { name: 'Chocolate Croissant', price: 110, icon: '<img src="Pastries/Chocolate Croissant.png" alt="Chocolate Croissant">' },
+        { name: 'Cheesecake Slice', price: 145, icon: '<img src="Pastries/Cheesecake Slice.png" alt="Cheesecake Slice">' }
     ],
     lightMeals: [
-        { name: 'Tuna Sandwich', price: 80, icon: '<img src="Light Meals/Tuna Sandwich.png" alt="Tuna Sandwich">' },
-        { name: 'Ham & Cheese Sandwich', price: 100, icon: '<img src="Light Meals/Ham & Cheese Sandwich.png" alt="Ham & Cheese Sandwich">' },
-        { name: 'Chicken Nuggets', price: 200, icon: '<img src="Light Meals/Chicken Nuggets.png" alt="Chicken Nuggets">' },
-        { name: 'Nachos', price: 200, icon: '<img src="Light Meals/Nachos.png" alt="Nachos">' },
-        { name: 'French Fries', price: 150, icon: '<img src="Light Meals/French Fries.png" alt="French Fries">' },
+        { name: 'French Fries', price: 95, icon: '<img src="Light Meals/French Fries.png" alt="French Fries">' },
+        { name: 'Tuna Sandwich', price: 105, icon: '<img src="Light Meals/Tuna Sandwich.png" alt="Tuna Sandwich">' },
+        { name: 'Ham & Cheese Sandwich', price: 115, icon: '<img src="Light Meals/Ham & Cheese Sandwich.png" alt="Ham & Cheese Sandwich">' },
+        { name: 'Chicken Nuggets', price: 130, icon: '<img src="Light Meals/Chicken Nuggets.png" alt="Chicken Nuggets">' },
+        { name: 'Nachos', price: 145, icon: '<img src="Light Meals/Nachos.png" alt="Nachos">' }
     ]
 };
 
@@ -154,6 +154,7 @@ function renderProducts(categoryKey, categoryName) {
         card.innerHTML = `
             <div class="product-icon">${item.icon}</div>
             <div class="product-name">${item.name}</div>
+            <div class="product-card-price">₱${item.price.toFixed(2)}</div>
         `;
         
         // Clicking a product card stages it in the footer
@@ -277,6 +278,7 @@ function addToCart(item, quantityToAdd) {
             price: itemPrice, 
             quantity: quantityToAdd,
             category: category,
+            size: ['milktea', 'frappe', 'refreshers', 'icedCoffee'].includes(category) ? 'Tall' : 'None', // NEW: Default size
             topping: category === 'milktea' ? 'Pearls' : 'None',
             ice: ['milktea', 'frappe', 'refreshers', 'icedCoffee'].includes(category) ? 'Normal Ice' : 'None',
             sugar: ['milktea', 'frappe', 'icedCoffee', 'hotCoffee'].includes(category) ? 'Normal Sugar' : 'None'
@@ -300,25 +302,35 @@ function updateCartUI() {
     }
 
     currentCart.forEach((cartItem, index) => {
-        // Base price calculation (+20 for More Pearls if applicable)
+        // Base price calculation (+20 for More Pearls, +10/+20 for Sizes)
         let currentBasePrice = cartItem.price;
-        if (cartItem.topping === 'More Pearls') {
-            currentBasePrice += 20; 
-        }
+        if (cartItem.topping === 'More Pearls') currentBasePrice += 20; 
+        if (cartItem.size === 'Grande') currentBasePrice += 10;
+        if (cartItem.size === 'Venti') currentBasePrice += 20;
 
         const itemTotal = currentBasePrice * cartItem.quantity;
         grandTotal += itemTotal;
 
-        // Determine which dropdowns should be visible for this specific item
+        // Determine which dropdowns should be visible
+        const showSize = ['milktea', 'frappe', 'refreshers', 'icedCoffee'].includes(cartItem.category);
         const showToppings = cartItem.category === 'milktea'; 
         const showIce = ['milktea', 'frappe', 'refreshers', 'icedCoffee'].includes(cartItem.category);
         const showSugar = ['milktea', 'frappe', 'icedCoffee', 'hotCoffee'].includes(cartItem.category);
 
-        // Build the HTML for the dropdowns conditionally
+        // Build HTML for dropdowns
         let customizationsHTML = '';
-        if (showToppings || showIce || showSugar) {
+        if (showSize || showToppings || showIce || showSugar) {
             customizationsHTML += `<div class="cart-item-customizations">`;
             
+            if (showSize) {
+                customizationsHTML += `
+                    <select class="cart-custom-select size-select" data-index="${index}">
+                        <option value="Tall" ${cartItem.size === 'Tall' ? 'selected' : ''}>Tall (12 fl oz)</option>
+                        <option value="Grande" ${cartItem.size === 'Grande' ? 'selected' : ''}>Grande (16 fl oz) (+₱10)</option>
+                        <option value="Venti" ${cartItem.size === 'Venti' ? 'selected' : ''}>Venti (24 fl oz) (+₱20)</option>
+                    </select>`;
+            }
+
             if (showToppings) {
                 customizationsHTML += `
                     <select class="cart-custom-select topping-select" data-index="${index}">
@@ -401,6 +413,14 @@ function updateCartUI() {
     });
 
     // Listeners for Customizations
+    document.querySelectorAll('.size-select').forEach(select => {
+        select.addEventListener('change', (e) => {
+            const idx = e.target.getAttribute('data-index');
+            currentCart[idx].size = e.target.value;
+            updateCartUI(); 
+        });
+    });
+
     document.querySelectorAll('.topping-select').forEach(select => {
         select.addEventListener('change', (e) => {
             const idx = e.target.getAttribute('data-index');
@@ -423,7 +443,6 @@ function updateCartUI() {
         });
     });
 }
-
 // ==========================================
 // 8. CHECKOUT & PRINT RECEIPT LOGIC
 // ==========================================
@@ -433,13 +452,14 @@ document.getElementById('checkout-btn').addEventListener('click', () => {
         return;
     }
 
-    // Calculate final total
+    // Calculate final total including size upgrades
     let finalTotal = 0;
     currentCart.forEach(item => {
         let basePrice = item.price;
-        if (item.topping === 'More Pearls') {
-            basePrice += 20;
-        }
+        if (item.topping === 'More Pearls') basePrice += 20;
+        if (item.size === 'Grande') basePrice += 10;
+        if (item.size === 'Venti') basePrice += 20;
+        
         finalTotal += (basePrice * item.quantity);
     });
 
@@ -477,9 +497,13 @@ function prepareAndPrintReceipt(cart, total, cashier) {
     cart.forEach(item => {
         let basePrice = item.price;
         if (item.topping === 'More Pearls') basePrice += 20;
+        if (item.size === 'Grande') basePrice += 10;
+        if (item.size === 'Venti') basePrice += 20;
+        
         let itemTotal = basePrice * item.quantity;
         
         let customText = [];
+        if (item.size && item.size !== 'None') customText.push(item.size);
         if (item.topping && item.topping !== 'None') customText.push(item.topping);
         if (item.ice && item.ice !== 'Normal Ice' && item.ice !== 'None') customText.push(item.ice);
         if (item.sugar && item.sugar !== 'Normal Sugar' && item.sugar !== 'None') customText.push(item.sugar);
@@ -502,6 +526,5 @@ function prepareAndPrintReceipt(cart, total, cashier) {
     });
 
     // 3. Open the browser's print dialog
-    // The CSS @media print rule will ensure only the #print-receipt div is printed
     window.print();
 }
