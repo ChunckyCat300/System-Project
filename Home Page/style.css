@@ -1,22 +1,22 @@
 /* =========================================
-   CUSTOM VARIABLES
+   1. CUSTOM VARIABLES & RESET
 ========================================= */
 :root {
     /* Colors */
     --bg-color: #ebf3ff;
     --card-bg: #ffffff;
     --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
     --text-main: #0f172a;
     --text-muted: #64748b;
+    --text-placeholder: #94a3b8;
     --border-color: #e2e8f0;
-
-    /* Layout Sizes (Change these to modify the page!) */
+    
+    /* Layout Sizes */
     --layout-gap: 2%;
     --header-height: 8%;
-    --footer-height: 8%;
-    --middle-height: 80%; /* Height for both Sidebar and Content */
-    --sidebar-width: 10%;
 }
+
 * {
     margin: 0;
     padding: 0;
@@ -30,71 +30,75 @@ body {
 }
 
 /* =========================================
-   MODIFIABLE LAYOUT LOGIC (Upgraded to CSS Grid)
+   2. MAIN GRID LAYOUT
 ========================================= */
 .container {
     display: grid;
-    
-    /* This creates 2 columns: Sidebar width, and '1fr' (which means 'take up 1 fraction of the remaining space') */
-    grid-template-columns: var(--sidebar-width) 1fr;
-    
-    /* This creates 3 rows matching your height variables */
-    grid-template-rows: var(--header-height) var(--middle-height) var(--footer-height);
-    
+    /* 3 Columns: Sidebar, Main Content, Cart */
+    grid-template-columns: 15% 1fr 300px;
+    /* 3 Rows: Header, Main area, Footer */
+    grid-template-rows: var(--header-height) 1fr 80px; 
     gap: var(--layout-gap);
-    height: 100vh; 
-    padding: var(--layout-gap); 
-    
-    /* NEW: This forces a horizontal scrollbar instead of squishing the layout when the window is super small */
-    min-width: 800px; 
+    height: 100vh;
+    padding: var(--layout-gap);
+    min-width: 1000px; 
 }
 
-/* Base style for all items */
+/* Base style for all layout panels */
 .item {
     background-color: var(--card-bg);
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
     border: 1px solid var(--border-color);
-    overflow: hidden; /* Prevents text from spilling out if it gets too small */
+    overflow: hidden; 
 }
 
-/* Header (1st item) */
-.item:nth-child(1) {
-    grid-column: 1 / -1; /* This tells the header to stretch across ALL columns */
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Puts title on left, logout on right */
+/* Panel 1: Header */
+.item:nth-child(1) { 
+    grid-column: 1 / -1; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    overflow: visible; /* CRITICAL: Allows dropdown to pop out over the grid */
+    z-index: 100;
 }
 
-/* Sidebar (2nd item) */
-.item:nth-child(2) {
-    /* Automatically locks into the bottom-left grid space */
+/* Panel 2: Navigation Sidebar */
+.item:nth-child(2) { 
+    grid-column: 1; 
+    grid-row: 2 / 4; /* Stretches down past the footer */
+} 
+
+/* Panel 3: Product Content Area */
+.item:nth-child(3) { 
+    grid-column: 2; 
+    grid-row: 2; 
+    overflow-y: auto; 
 }
 
-/* Content (3rd item) */
-.item:nth-child(3) {
-    /* Automatically locks into the bottom-right grid space */
-    overflow-y: auto; /* Adds an inside scrollbar if you type a LOT of text here */
+/* Panel 4: Preview Footer (Staging Area) */
+.item:nth-child(4) { 
+    grid-column: 2; 
+    grid-row: 3; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+    border: 2px solid var(--primary-color); 
+    background-color: #f8fafc;
 }
 
-/* Footer (4th item) */
-.item:nth-child(4) {
-    grid-column: 1 / -1; /* Stretches across ALL columns like the header */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Panel 5: Cart Sidebar */
+.item:nth-child(5) { 
+    grid-column: 3; 
+    grid-row: 2 / 4; 
+    display: flex; 
+    flex-direction: column; 
 }
 
 /* =========================================
-   INTERNAL STYLING (Just making it look good)
+   3. HEADER & NAVIGATION STYLES
 ========================================= */
-
-/* Header Specifics */
-.header {
-    justify-content: space-between; /* Puts title on left, logout on right */
-}
-
 .header h2 {
     font-size: 20px;
     color: var(--primary-color);
@@ -115,7 +119,6 @@ body {
     background-color: #1e293b;
 }
 
-/* Sidebar Specifics */
 .nav-links {
     list-style: none;
     display: flex;
@@ -138,20 +141,465 @@ body {
     color: var(--primary-color);
 }
 
-/* Content Specifics */
+/* =========================================
+   4. PRODUCT GRID & CARDS
+========================================= */
 .content h3 {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     font-size: 24px;
 }
 
-.content p {
-    color: var(--text-muted);
-    line-height: 1.6;
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 20px;
+    padding: 10px 0;
 }
 
-/* Footer Specifics */
-.footer {
+.product-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    color: var(--text-muted);
+    gap: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease; 
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+    border-color: var(--primary-color);
+}
+
+.product-card:active {
+    transform: translateY(2px) scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.product-icon img {
+    max-width: 100%;
+    height: auto;
+    max-height: 80px; 
+    object-fit: contain;
+}
+
+.product-icon {
+    font-size: 40px; /* For the emoji icons */
+}
+
+.product-name {
     font-size: 14px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* =========================================
+   5. PREVIEW FOOTER (STAGING AREA)
+========================================= */
+.preview-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-main);
+}
+
+.preview-price {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-weight: 600;
+}
+
+.preview-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.qty-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: white;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.qty-btn:hover {
+    background: var(--border-color);
+}
+
+.add-btn {
+    padding: 12px 24px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.add-btn:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   6. CART SIDEBAR STYLES
+========================================= */
+.cart-sidebar h3 {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.cart-items-container {
+    flex-grow: 1; /* Pushes the summary block to the bottom */
+    overflow-y: auto;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.empty-cart-msg {
+    color: var(--text-placeholder);
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--bg-color);
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.cart-item-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-item-name {
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.cart-item-price {
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.cart-summary {
+    border-top: 2px solid var(--border-color);
+    padding-top: 15px;
+}
+
+.cart-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #0f172a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.checkout-btn:hover {
+    background-color: #1e293b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+/* =========================================
+   7. IN-CART CUSTOMIZATION & CONTROLS
+========================================= */
+.cart-item-customizations {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 10px 0;
+}
+
+.cart-custom-select {
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: white;
+    color: var(--text-main);
+    font-size: 12px;
+    outline: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.cart-item-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+.cart-qty-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.cart-qty-btn:hover {
+    background: var(--border-color);
+}
+/* =========================================
+   8. PRINT STYLES (RECEIPT)
+========================================= */
+/* Hide the receipt on the normal screen */
+@media screen {
+    .print-only {
+        display: none;
+    }
+}
+
+/* When printing, hide the app container and show only the receipt */
+@media print {
+    body * {
+        visibility: hidden; /* Hides the sidebar, grid, header, etc. */
+    }
+    .print-only, .print-only * {
+        visibility: visible;
+    }
+    .print-only {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 300px; /* Standard width for thermal POS printers */
+        padding: 10px;
+        font-family: 'Courier New', Courier, monospace;
+        color: #000;
+    }
+    
+    .receipt-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .receipt-header h1 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+    .receipt-header p {
+        margin: 3px 0;
+        font-size: 11px;
+    }
+    
+    .item-meta {
+        font-size: 10px;
+        color: #555;
+        margin-top: 2px;
+        font-weight: normal;
+    }
+}
+
+/* =========================================
+   9. MODERN PROFILE DROPDOWN
+========================================= */
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    padding: 6px 14px 6px 8px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-main);
+    transition: all 0.2s ease;
+}
+
+.profile-btn:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.chevron {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+.btn-avatar, .card-avatar {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.card-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+}
+
+.online-dot {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    background-color: #10b981;
+    border: 2px solid white;
+    border-radius: 50%;
+}
+
+/* Floating Dropdown Card */
+.dropdown-card {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    width: 230px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+    padding: 8px 0;
+    z-index: 999;
+}
+
+.dropdown-card.show {
+    display: block;
+    animation: fadeInDropdown 0.15s ease-out;
+}
+
+@keyframes fadeInDropdown {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-user-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+}
+
+.card-user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-user-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.card-user-status {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.dropdown-divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 6px 0;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.15s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f8fafc;
+}
+
+.dropdown-item-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dropdown-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--text-muted);
+}
+
+.dropdown-arrow {
+    font-size: 18px;
+    color: var(--text-muted);
+    line-height: 1;
+}
+
+/* Red Logout Styling */
+.logout-item {
+    color: #ef4444;
+}
+
+.logout-item .dropdown-icon {
+    color: #ef4444;
+}
+
+.logout-item:hover {
+    background-color: #fef2f2;
 }

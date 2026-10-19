@@ -1,0 +1,274 @@
+/* =========================================
+   ADMIN DASHBOARD STYLES
+========================================= */
+:root {
+    --bg-color: #ebf3ff;
+    --card-bg: #ffffff;
+    --primary-color: #2563eb;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+body { background-color: var(--bg-color); color: var(--text-main); }
+
+/* Layout Grid */
+.container {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    grid-template-rows: 80px 1fr;
+    gap: 20px;
+    height: 100vh;
+    padding: 20px;
+}
+
+.item {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--border-color);
+}
+
+.header { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; }
+.sidebar { grid-column: 1; grid-row: 2; }
+.content { grid-column: 2; grid-row: 2; overflow-y: auto; }
+
+/* Header Elements */
+.header h2 { color: var(--primary-color); font-size: 20px; }
+.profile-section { display: flex; align-items: center; gap: 15px; }
+.user-name { font-weight: 600; color: var(--text-muted); }
+.logout-btn { background: var(--text-main); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; transition: 0.2s; }
+.logout-btn:hover { background: #1e293b; }
+
+/* Sidebar Navigation */
+.nav-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 600; padding: 12px; border-radius: 6px; display: block; transition: 0.2s; }
+.nav-links a.active, .nav-links a:hover { background-color: var(--bg-color); color: var(--primary-color); }
+
+/* Dashboard Controls */
+.dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+.filter-group { display: flex; gap: 10px; background: #f8fafc; padding: 6px; border-radius: 8px; border: 1px solid var(--border-color); }
+.filter-btn { padding: 8px 16px; border: none; background: transparent; border-radius: 6px; cursor: pointer; color: var(--text-muted); font-weight: bold; transition: 0.2s; }
+.filter-btn.active, .filter-btn:hover { background: var(--primary-color); color: white; }
+
+/* Summary Cards */
+.stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.stat-card { padding: 25px; border-radius: 12px; border: 1px solid var(--border-color); background: #f8fafc; text-align: center; }
+.stat-card h4 { color: var(--text-muted); font-size: 15px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+.stat-card p { font-size: 32px; font-weight: bold; color: var(--primary-color); }
+
+/* Sales Table */
+.table-container { overflow-x: auto; border: 1px solid var(--border-color); border-radius: 8px; }
+.sales-table { width: 100%; border-collapse: collapse; text-align: left; }
+.sales-table th, .sales-table td { padding: 15px; border-bottom: 1px solid var(--border-color); }
+.sales-table th { background: #f8fafc; color: var(--text-muted); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+.sales-table td { font-size: 14px; }
+.sales-table tr:hover { background: #f8fafc; }
+.amount-cell { font-weight: bold; color: #10b981; }
+
+/* =========================================
+   9. MODERN PROFILE DROPDOWN
+========================================= */
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    padding: 6px 14px 6px 8px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-main);
+    transition: all 0.2s ease;
+}
+
+.profile-btn:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.chevron {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+.btn-avatar, .card-avatar {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.card-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+}
+
+.online-dot {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    background-color: #10b981;
+    border: 2px solid white;
+    border-radius: 50%;
+}
+
+/* Floating Dropdown Card */
+.dropdown-card {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    width: 230px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+    padding: 8px 0;
+    z-index: 999;
+}
+
+.dropdown-card.show {
+    display: block;
+    animation: fadeInDropdown 0.15s ease-out;
+}
+
+@keyframes fadeInDropdown {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-user-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+}
+
+.card-user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-user-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.card-user-status {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.dropdown-divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 6px 0;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.15s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f8fafc;
+}
+
+.dropdown-item-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dropdown-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--text-muted);
+}
+
+.dropdown-arrow {
+    font-size: 18px;
+    color: var(--text-muted);
+    line-height: 1;
+}
+
+/* Red Logout Styling */
+.logout-item {
+    color: #ef4444;
+}
+
+.logout-item .dropdown-icon {
+    color: #ef4444;
+}
+
+.logout-item:hover {
+    background-color: #fef2f2;
+}
+
+/* Header Left Alignment & Back Button */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    background-color: #f8fafc;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border-color: var(--primary-color);
+    transform: translateX(-2px);
+}
+
+/* Optional Sidebar Return Link Styling */
+.nav-links a.return-nav-link {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.nav-links a.return-nav-link:hover {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}

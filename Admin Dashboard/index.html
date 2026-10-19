@@ -3,17 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard - Moon & Mug</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     
     <div class="container">
-        <!-- Dynamic Header -->
+        <!-- Dynamic Header with Return Button -->
         <div class="item header">
-            <h2 id="welcome-text">Admin Control Panel</h2>
-            <div style="display: flex; align-items: center; gap: 15px;">
-                <span id="user-profile-name" style="font-weight: 600; color: var(--text-muted);">User</span>
+            <div class="header-left">
+                <a href="../Home Page/index.html" class="back-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    Back to Home
+                </a>
+                <h2 id="welcome-text">Admin Control Panel</h2>
+            </div>
+
+            <div class="profile-section">
+                <span id="user-profile-name" class="user-name">Admin</span>
                 <a href="../Login Page/index.html" id="logout-btn" class="logout-btn">Log out</a>
             </div>
         </div>
@@ -25,12 +35,25 @@
                 <li><a href="#">Manage Inventory</a></li>
                 <li><a href="#">Staff Accounts</a></li>
                 <li><a href="#">System Settings</a></li>
+                <li style="margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 10px;">
+                    <a href="../Home Page/index.html" class="return-nav-link">← Return to POS</a>
+                </li>
             </ul>
         </div>
 
         <!-- Content Area -->
         <div class="item content">
-            <h3>Sales Overview</h3>
+            <div class="dashboard-header">
+                <h3>Sales Overview</h3>
+                <!-- NEW: Time Filters -->
+                <div class="filter-group">
+                    <button class="filter-btn active" data-filter="daily">Daily</button>
+                    <button class="filter-btn" data-filter="weekly">Weekly</button>
+                    <button class="filter-btn" data-filter="monthly">Monthly</button>
+                    <button class="filter-btn" data-filter="annually">Annually</button>
+                    <button class="filter-btn" data-filter="all">All Time</button>
+                </div>
+            </div>
             
             <!-- Summary Cards -->
             <div class="stats-grid">
@@ -44,7 +67,9 @@
                 </div>
             </div>
 
-            <h3 style="margin-top: 30px;">Recent Transactions</h3>
+            <h3 style="margin-top: 30px; margin-bottom: 15px;">
+                Transaction History <span id="current-filter-label" style="color: #64748b; font-size: 16px;">(Daily)</span>
+            </h3>
             
             <!-- Sales Table -->
             <div class="table-container">
@@ -53,6 +78,7 @@
                         <tr>
                             <th>Date & Time</th>
                             <th>Cashier</th>
+                            <th>Items Sold</th>
                             <th>Total Amount</th>
                         </tr>
                     </thead>
@@ -64,47 +90,7 @@
         </div>
     </div>
 
-    <script>
-        // --- 1. SETUP DYNAMIC PROFILE ---
-        const activeUser = localStorage.getItem('activeUser') || 'Guest';
-        document.getElementById('user-profile-name').textContent = activeUser;
-        
-        document.getElementById('logout-btn').addEventListener('click', () => {
-            localStorage.removeItem('activeUser');
-        });
-
-        // --- 2. LOAD SALES DATA ---
-        const salesHistory = JSON.parse(localStorage.getItem('posSales')) || [];
-        const revenueDisplay = document.getElementById('total-revenue');
-        const ordersDisplay = document.getElementById('total-orders');
-        const tableBody = document.getElementById('sales-table-body');
-
-        let totalRevenue = 0;
-        tableBody.innerHTML = '';
-
-        if (salesHistory.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="3" style="text-align: center; color: #64748b;">No sales recorded yet. Process an order in the POS first!</td></tr>';
-        } else {
-            // Loop through every sale saved in local storage (newest first)
-            salesHistory.reverse().forEach(sale => {
-                totalRevenue += sale.total; 
-
-                const dateObj = new Date(sale.date);
-                const formattedDate = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString();
-
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${formattedDate}</td>
-                    <td>${sale.cashier}</td>
-                    <td style="font-weight: bold; color: #10b981;">₱${sale.total.toFixed(2)}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
-
-        // Update the top summary cards
-        revenueDisplay.textContent = `₱${totalRevenue.toFixed(2)}`;
-        ordersDisplay.textContent = salesHistory.length;
-    </script>
+    <!-- Link to external JS -->
+    <script src="script.js"></script>
 </body>
 </html>
