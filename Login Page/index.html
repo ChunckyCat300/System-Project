@@ -62,14 +62,19 @@
              </div>
                   </div>
 
+              <!-- Error Message Container -->
                 <p id="error-msg" style="color: #ef4444; font-size: 14px; margin-bottom: 10px; display: none; text-align: center;"></p>
 
+                <!-- 1. HERE IS YOUR MISSING BUTTON -->
                 <button type="submit" class="login-btn">Sign in</button>
             </form>
 
+            <!-- Footer Links -->
             <p class="signup-text">Don't have an account? <a href="#" class="signup-link">Sign up</a></p>
         </div>
         
+        <p class="demo-text">Demo: admin/1234 or staff/1234</p>
+    </div>
 
     <script>
         // --- 1. EXISTING PASSWORD TOGGLE LOGIC ---
@@ -104,20 +109,21 @@
             const enteredUsername = usernameInput.value;
             const enteredPassword = passwordInput.value;
 
-            // Check for Admin
+           // --- ADMIN LOGIC ---
             if (enteredUsername === 'admin' && enteredPassword === '1234') {
+                localStorage.setItem('activeUser', 'Admin');
+                // UPDATE THIS LINE: Route Admin to the POS first
                 window.location.href = '../Home Page/index.html'; 
-            } 
-            // Check for Staff
+            }
+            // --- STAFF LOGIC ---
             else if (enteredUsername === 'staff' && enteredPassword === '1234') {
+                localStorage.setItem('activeUser', 'Staff');
                 window.location.href = '../Home Page/index.html';
             } 
-            // If neither matches, show error
+            // --- ERROR LOGIC ---
             else {
                 errorMsg.textContent = 'Invalid username or password.';
-                errorMsg.style.display = 'block'; // Make the error visible
-                
-                // Add a red border to the inputs to show failure
+                errorMsg.style.display = 'block'; 
                 usernameInput.style.borderColor = '#ef4444';
                 passwordInput.style.borderColor = '#ef4444';
             }

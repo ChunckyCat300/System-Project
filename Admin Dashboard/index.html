@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="container">
+        <!-- Dynamic Header -->
+        <div class="item header">
+            <h2 id="welcome-text">Admin Control Panel</h2>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <span id="user-profile-name" style="font-weight: 600; color: var(--text-muted);">User</span>
+                <a href="../Login Page/index.html" id="logout-btn" class="logout-btn">Log out</a>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="item sidebar">
+            <ul class="nav-links">
+                <li><a href="#" class="active">Sales Dashboard</a></li>
+                <li><a href="#">Manage Inventory</a></li>
+                <li><a href="#">Staff Accounts</a></li>
+                <li><a href="#">System Settings</a></li>
+            </ul>
+        </div>
+
+        <!-- Content Area -->
+        <div class="item content">
+            <h3>Sales Overview</h3>
+            
+            <!-- Summary Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h4>Total Revenue</h4>
+                    <p id="total-revenue">₱0.00</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Total Orders</h4>
+                    <p id="total-orders">0</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Recent Transactions</h3>
+            
+            <!-- Sales Table -->
+            <div class="table-container">
+                <table class="sales-table">
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Cashier</th>
+                            <th>Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sales-table-body">
+                        <!-- JavaScript will inject sales here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. SETUP DYNAMIC PROFILE ---
+        const activeUser = localStorage.getItem('activeUser') || 'Guest';
+        document.getElementById('user-profile-name').textContent = activeUser;
+        
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            localStorage.removeItem('activeUser');
+        });
+
+        // --- 2. LOAD SALES DATA ---
+        const salesHistory = JSON.parse(localStorage.getItem('posSales')) || [];
+        const revenueDisplay = document.getElementById('total-revenue');
+        const ordersDisplay = document.getElementById('total-orders');
+        const tableBody = document.getElementById('sales-table-body');
+
+        let totalRevenue = 0;
+        tableBody.innerHTML = '';
+
+        if (salesHistory.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="3" style="text-align: center; color: #64748b;">No sales recorded yet. Process an order in the POS first!</td></tr>';
+        } else {
+            // Loop through every sale saved in local storage (newest first)
+            salesHistory.reverse().forEach(sale => {
+                totalRevenue += sale.total; 
+
+                const dateObj = new Date(sale.date);
+                const formattedDate = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString();
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${formattedDate}</td>
+                    <td>${sale.cashier}</td>
+                    <td style="font-weight: bold; color: #10b981;">₱${sale.total.toFixed(2)}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Update the top summary cards
+        revenueDisplay.textContent = `₱${totalRevenue.toFixed(2)}`;
+        ordersDisplay.textContent = salesHistory.length;
+    </script>
+</body>
+</html>

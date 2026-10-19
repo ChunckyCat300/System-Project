@@ -9,30 +9,155 @@
 <body>
     
     <div class="container">
+     <!-- Dynamic Header with Dropdown -->
         <div class="item header">
-            <h2>Wala Pang Pwede Ilagay Dito</h2>
-            <a href="../Login Page/index.html" class="logout-btn">Log out</a>
+            <h2 id="welcome-text">System Dashboard</h2>
+            <div class="profile-dropdown">
+                <button class="profile-btn">
+                    <span id="user-profile-name">User</span> ▼
+                </button>
+                <div class="dropdown-content">
+                    <!-- These links are hidden by default and only shown to Admins -->
+                    <a href="#" id="menu-profile" style="display: none;">Profile</a>
+                    <a href="../Admin Dashboard/index.html" id="menu-dashboard" style="display: none;">Sales Dashboard</a>
+                    <a href="#" id="menu-staff" style="display: none;">Staff Accounts</a>
+                    <a href="#" id="menu-settings" style="display: none;">System Settings</a>
+                    <!-- Logout is visible to everyone -->
+                    <a href="../Login Page/index.html" id="logout-btn">Log out</a>
+                </div>
+            </div>
         </div>
 
+        <!-- Sidebar -->
         <div class="item sidebar">
             <ul class="nav-links">
-                <li><a href="#" class="active">Milktea</a></li>
-                <li><a href="#">Hot Coffee</a></li>
-                <li><a href="#">Iced Coffee</a></li>
-                <li><a href="#">Frappe</a></li>
-                <li><a href="#">Desserts</a></li>
+                <li><a href="#" class="category-link active" data-category="milktea">Milktea</a></li>
+                <li><a href="#" class="category-link" data-category="hotCoffee">Hot Coffee</a></li>
+                <li><a href="#" class="category-link" data-category="icedCoffee">Iced Coffee</a></li>
+                <li><a href="#" class="category-link" data-category="frappe">Frappe</a></li>
+                <li><a href="#" class="category-link" data-category="desserts">Desserts</a></li>
             </ul>
         </div>
 
+        <!-- Content Area -->
         <div class="item content">
-            <h3>Welcome back!</h3>
-            <p>Jason Tatum, mula sa maikling pahinga, bumalik na at lalo pang lumakas.</p>
+            <h3 id="category-title">Milktea</h3>
+            
+            <!-- This is the empty grid where JavaScript will inject the products -->
+            <div id="product-grid" class="product-grid"></div>
         </div>
 
+        <!-- Footer / Checkout Area -->
         <div class="item footer">
-            <p>&copy; Binasa pa talaga wala naman talagang pwede basahin.</p>
+            <button id="checkout-btn" class="checkout-btn">Checkout</button>
         </div>
     </div>
 
+    <!-- JavaScript for the POS Interface -->
+    <script>
+        // --- 0. SETUP DYNAMIC PROFILE ---
+        const activeUser = localStorage.getItem('activeUser') || 'Guest';
+        document.getElementById('user-profile-name').textContent = activeUser;
+        
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            localStorage.removeItem('activeUser');
+        });
+
+        // 1. Define your products for each category
+        const menuData = {
+            milktea: [
+                { name: 'Okinawa', icon: '🧋' },
+                { name: 'Hokkaido', icon: '🧋' },
+                { name: 'Taro', icon: '🧋' },
+                { name: 'Matcha', icon: '🧋' },
+                { name: 'Wintermelon', icon: '🧋' },
+                { name: 'Thai Milk Tea', icon: '🧋' },
+                { name: 'Brown Sugar', icon: '🧋' }
+            ],
+            hotCoffee: [
+                { name: 'Espresso', icon: '☕' },
+                { name: 'Americano', icon: '☕' },
+                { name: 'Cappuccino', icon: '☕' },
+                { name: 'Latte', icon: '☕' },
+                { name: 'Mocha', icon: '☕' }
+            ],
+            icedCoffee: [
+                { name: 'Iced Americano', icon: '🧊☕' },
+                { name: 'Iced Caramel', icon: '🧊☕' }
+            ],
+            frappe: [
+                { name: 'Mocha Frappe', icon: '🥤' },
+                { name: 'Matcha Frappe', icon: '🥤' }
+            ],
+            desserts: [
+                { name: 'Cheesecake', icon: '🍰' },
+                { name: 'Chocolate Muffin', icon: '🧁' }
+            ]
+        };
+
+        // 2. Get the HTML elements
+        const categoryLinks = document.querySelectorAll('.category-link');
+        const productGrid = document.getElementById('product-grid');
+        const categoryTitle = document.getElementById('category-title');
+
+        // 3. Function to draw the products on the screen
+        function renderProducts(categoryKey, categoryName) {
+            categoryTitle.textContent = categoryName; // Update the header text
+            productGrid.innerHTML = ''; // Clear the grid
+
+            const items = menuData[categoryKey] || []; // Get the right array of items
+
+            // Loop through each item and create a visual card for it
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="product-icon">${item.icon}</div>
+                    <div class="product-name">${item.name}</div>
+                `;
+                productGrid.appendChild(card);
+            });
+        }
+
+        // 4. Listen for clicks on the sidebar
+        categoryLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault(); // Stops the page from jumping to the top
+
+                // Remove the blue background from all links
+                categoryLinks.forEach(l => l.classList.remove('active'));
+                
+                // Add the blue background to the one you just clicked
+                this.classList.add('active');
+
+                // Find out which category to load
+                const categoryKey = this.getAttribute('data-category');
+                const categoryName = this.textContent;
+
+                // Load the products
+                renderProducts(categoryKey, categoryName);
+            });
+        });
+
+        // 5. Load Milktea by default when the page first opens
+        renderProducts('milktea', 'Milktea');
+
+        // --- CHECKOUT LOGIC ---
+        document.getElementById('checkout-btn').addEventListener('click', () => {
+            // Because this version doesn't have a cart, we'll just log a placeholder sale
+            const saleRecord = {
+                date: new Date().toISOString(),
+                cashier: localStorage.getItem('activeUser') || 'Unknown',
+                items: [{name: "Sample Order", sugar: "100%"}], 
+                total: 150.00 // Placeholder price
+            };
+
+            let salesHistory = JSON.parse(localStorage.getItem('posSales')) || [];
+            salesHistory.push(saleRecord);
+            localStorage.setItem('posSales', JSON.stringify(salesHistory));
+
+            alert(`Checkout Complete! (Placeholder)`);
+        }); 
+    </script>
 </body>
 </html>
