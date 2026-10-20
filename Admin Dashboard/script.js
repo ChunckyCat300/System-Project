@@ -129,3 +129,65 @@ document.addEventListener('DOMContentLoaded', () => {
     renderDashboard('daily');
 });
 
+// ==========================================
+    // 6. SIDEBAR NAVIGATION TOGGLE
+    // ==========================================
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    const dashboardSections = document.querySelectorAll('.dashboard-section');
+
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevents the page from jumping to the top
+
+            // Remove active styling from all links
+            sidebarLinks.forEach(l => l.classList.remove('active'));
+            // Add active styling to the clicked link
+            e.target.classList.add('active');
+
+            // Hide all content sections
+            dashboardSections.forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show only the section that matches the clicked link's data-target
+            const targetId = e.target.getAttribute('data-target');
+            document.getElementById(targetId).style.display = 'block';
+        });
+    });
+
+    // ==========================================
+    // 7. INVENTORY, STAFF & SETTINGS LOGIC
+    // ==========================================
+    
+    // Restock Buttons
+    const restockBtns = document.querySelectorAll('.restock-btn');
+    restockBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const itemName = e.target.closest('tr').querySelector('td').textContent;
+            alert(`Purchase order generated to restock: ${itemName}`);
+        });
+    });
+
+    // Reset Password Buttons
+    const resetPassBtns = document.querySelectorAll('.reset-pass-btn');
+    resetPassBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const username = e.target.closest('tr').querySelector('td').textContent;
+            const newPass = prompt(`Enter new password for user '${username}':`);
+            if (newPass) {
+                alert(`Password for '${username}' has been successfully updated.`);
+            }
+        });
+    });
+
+    // Save Settings
+    const saveSettingsBtn = document.getElementById('save-settings-btn');
+    if (saveSettingsBtn) {
+        saveSettingsBtn.addEventListener('click', () => {
+            const msg = document.getElementById('settings-msg');
+            msg.style.display = 'block';
+            setTimeout(() => {
+                msg.style.display = 'none';
+            }, 3000);
+        });
+    }
